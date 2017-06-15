@@ -1,0 +1,30 @@
+body{
+
+}
+/* Start My Framework */
+.msg{
+  max-width: 700px;
+  margin: auto;
+  font-size: 20px;
+  text-align: center;
+  border-left: 3px solid;
+  margin-bottom: 6px;
+}
+/* End My Framework */
+form{
+  position: relative;
+  max-width: 500px;
+  margin: 120px auto 0;
+}
+form input{
+  margin-bottom: 3px;
+}
+
+.errors{
+  max-width: 500px;
+  margin: auto;
+  font-size: 18px;
+}
+.navbar{
+  border-radius: 0;
+}
