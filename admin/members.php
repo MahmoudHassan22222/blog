@@ -27,13 +27,75 @@ if($users == "Add"){ ?>
     $mail = $_POST['email'];
     $pass = $_POST['password'];
     $md5 = md5($pass);
-    // Exsit Username
+    // Exist Username
+    $errMsg = "";
     $userEx = $connect->prepare("SELECT * FROM users WHERE username = :Euser");
     $userEx->execute(array(
       ':Euser' => $user
     ));
     $userExCount = $userEx->rowCount();
-    if($userExCount == 0){
+    if($userExCount == 1){
+      echo $errMsg = "<div class='alert alert-danger msg'>
+      USERNAME IS FOUND IN DATABASE, PLEASE TRY AGAIN
+      </div>";
+    }
+    // Exist Email
+    $emailEx = $connect->prepare("SELECT * FROM users WHERE email = :xmails");
+    $emailEx->execute(array(
+      ':xmails' => $mail
+    ));
+    $emailExCount = $emailEx->rowCount();
+    if($emailExCount == 1){
+      echo $errMsg = "<div class='alert alert-danger msg'>
+      EMAIL IS FOUND IN DATABASE, PLEASE TRY AGAIN
+      </div>";
+      //redirect('back', 7);
+    }
+    // Check All Forms
+
+    // Check Full Name
+    if(empty($name)){
+      echo $errMsg = "<div class='alert alert-danger msg'>
+      NAME IS EMPTY
+      </div>";
+    }
+    if(!empty($name) && strlen($name) < 8){
+      echo $errMsg = "<div class='alert alert-danger msg'>
+      NAME MUST BE 6 CHARS OR LARG
+      </div>";
+    }
+    // Check User
+    if(empty($user)){
+      echo $errMsg = "<div class='alert alert-danger msg'>
+      USERNAME IS EMPTY
+      </div>";
+    }
+    if(!empty($user) && strlen($user) < 6){
+      echo $errMsg = "<div class='alert alert-danger msg'>
+      USERNAME MUST BE 6 CHARS OR LARG
+      </div>";
+    }
+    // Check Email
+    if(empty($mail)){
+      echo $errMsg = "<div class='alert alert-danger msg'>
+      EMAIL IS EMPTY
+      </div>";
+    }
+    // Check Password
+    if(empty($pass)){
+      echo $errMsg = "<div class='alert alert-danger msg'>
+      PASSWORD IS EMPTY
+      </div>";
+    }
+    if(!empty($pass) && strlen($pass) < 8){
+      echo $errMsg = "<div class='alert alert-danger msg'>
+      PASSWORD MUST BE 8 CHARS OR LARG
+      </div>";
+    }
+
+    if(empty($errMsg)){
+
+
     $insert = $connect->prepare("INSERT INTO users SET
       username = :vuser, password = :vpass, name = :vname, email = :vmail, created = now()");
     $insert->execute(array(
@@ -48,10 +110,7 @@ if($users == "Add"){ ?>
       redirect($msg, 'bk');
     }
   }else {
-    $msg = "<div class='alert alert-danger msg'>
-    USERNAME IS FOUND IN DATABASE, PLEASE TRY AGAIN
-    </div>";
-    redirect($msg, 'back', 10);
+    redirect('', 'back', 15);
   }
 
   }
@@ -127,6 +186,7 @@ if($users == "Add"){ ?>
   }
 }elseif ($users == "Manage") { ?>
   <div class="container text-center">
+    <a class="btn btn-success" href="?users=Add">ADD NEW MEMBER</a>
     <div class="panel panel-info">
     <!-- Default panel contents -->
     <div class="panel-heading">MEMBERS MANAGEMENTS</div>
