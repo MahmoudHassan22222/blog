@@ -10,14 +10,20 @@ body{
   border-left: 3px solid;
   margin-bottom: 6px;
 }
+.add{
+  margin-bottom: 2px;
+}
 /* End My Framework */
 form{
   position: relative;
   max-width: 500px;
   margin: 120px auto 0;
 }
-form input{
+form input, form textarea, form select{
   margin-bottom: 3px;
+}
+form textarea{
+  height: 250px !important;
 }
 
 .errors{
@@ -27,4 +33,21 @@ form input{
 }
 .navbar{
   border-radius: 0;
+}
+.catmanage{
+  margin-bottom: 20px;
+  background-color: #73afa7;
+  color: #fff;
+  padding: 10px;
+  font-size: 17px;
+  border-radius: 10px;
+}
+.catmanage .btn{
+  margin-bottom: 20px;
+  margin-right: 5px;
+  width: 85px;
+}
+.articlesForm{
+  max-width: 900px;
+  margin: 25px auto 30px;
 }
