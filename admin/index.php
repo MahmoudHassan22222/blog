@@ -10,7 +10,7 @@ if(isset($_SESSION['username'])){
     $username = $_POST['username'];
     $mail = $_POST['username'];
     $password = $_POST['password'];
-    $hash_pass = md5($password);
+    $hash_pass = $password;
     $login = $connect->prepare("SELECT * FROM users WHERE username = ? AND password = ? AND active = 1 AND groups = 1");
     $login->execute(array($username, $hash_pass));
     $allUsers = $login->fetch();

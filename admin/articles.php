@@ -76,7 +76,7 @@
 			$expl = strtolower(end(explode(".", $nameImg)));
 			if(in_array($expl, $extImg)){
 				//$rndm = rand(1, 100000000000, $nameImg);
-				move_uploaded_file($tmpImg, "images/$nameImg");				
+				move_uploaded_file($tmpImg, "images/$nameImg");
 			$article_insert = $connect->prepare("INSERT INTO articles SET name = :xname, descr = :xdesc, art_user = :artuser, art_cat = :artcat, imgs = :ximags, created = now()");
 			$article_insert->execute(array(
 					'xname' => $article_name,
@@ -101,7 +101,7 @@
 		}else{
 			redirect('', 'back', 7);
 	}
-		}elseif ($articles == "Edit") { 
+		}elseif ($articles == "Edit") {
 
 			$article_id = "";
 			if(isset($_GET['id']) && is_numeric($_GET['id'])){
@@ -114,7 +114,10 @@
 			$article_rows = $select_article_id->fetch();
 
 			?>
-			<form class="articlesForm" action="?name=Insert" method="POST" enctype="multipart/form-data">
+			<!--
+انا مش فاهم انت ليه بتكتب الاكشن في الفورم بالشكل ده ؟؟؟
+			<form class="articlesForm" action="?name=Insert" method="POST" enctype="multipart/form-data"> -->
+			<form class="articlesForm" action="" method="post" enctype="multipart/form-data">
 				<h1 class="text-center">EDIT ARTICLE</h1>
 				<input type="hidden" name="id" value="<?php echo $article_id ?>">
 				<input class="form-control input-lg" type="text" name="name_article" value="<?php echo $article_rows['name'] ?>">
@@ -128,29 +131,13 @@
 						}
 					?>
 				</select>
-				<select class="form-control input-lg" name="article_user">
-					<?php
-					// users options
-						$allUsers = getFromTable("users");
-						foreach($allUsers as $allUser){
-							echo "<option value=" . $allUser["id"] . ">" . $allUser['username'] . "</option>";
-						}
-					?>
-				</select>
+				<input type="hidden" name="userId" value="<?php echo $_SESSION['user_id']; ?>" />
 				<input type="file" name="article_img">
 				<input class="btn btn-success btn-lg btn-block" type="submit" name="submit" value="ADD NEW ARTICLE">
 			</form>
 		<?php }
 
-
-
-
-
-
-
-
-
-	}else{
+	} else{
 		header("Location: index.php");
 		exit();
 	}
